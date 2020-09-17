@@ -44,6 +44,29 @@ const App: React.FC = () => {
   const runningRef = useRef(running);
   runningRef.current = running;
 
+  const btnStartStopHandler = () => {
+    setRunning(!running);
+    if (!running) {
+      runningRef.current = true;
+      runSimulation();
+    }
+  };
+
+  const btnRandomHandler = () => {
+    const rows = [];
+    for (let i = 0; i < numRows; i++) {
+      rows.push(
+        Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
+      );
+    }
+
+    setGrid(rows);
+  };
+
+  const btnClearHandler = () => {
+    setGrid(generateEmptyGrid());
+  };
+
   const runSimulation = useCallback(() => {
     console.log("runSimulation!")
     if (!runningRef.current) {
@@ -88,37 +111,19 @@ const App: React.FC = () => {
       }}>
         <button
           className="btn"
-          onClick={() => {
-            console.log("start/stop click!")
-            setRunning(!running);
-            if (!running) {
-              runningRef.current = true;
-              runSimulation();
-            }
-          }}
+          onClick={btnStartStopHandler}
         >
           {running ? "stop" : "start"}
         </button>
         <button
           className="btn"
-          onClick={() => {
-            const rows = [];
-            for (let i = 0; i < numRows; i++) {
-              rows.push(
-                Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
-              );
-            }
-
-            setGrid(rows);
-          }}
+          onClick={btnRandomHandler}
         >
           random
         </button>
         <button
           className="btn"
-          onClick={() => {
-            setGrid(generateEmptyGrid());
-          }}
+          onClick={btnClearHandler}
         >
           clear
         </button>
