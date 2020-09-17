@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import produce from "immer";
 import useWindowDimensions from "./utils/windowSize";
+import 'typeface-ibm-plex-mono';
 import './App.css';
 
 const operations = [
@@ -77,40 +78,51 @@ const App: React.FC = () => {
   }, [numCols, numRows]);
 
   return (
-    <>
-      <button
-        onClick={() => {
-          console.log("start/stop click!")
-          setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {running ? "stop" : "start"}
-      </button>
-      <button
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numRows; i++) {
-            rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
-            );
-          }
+    <div style={{
+      display: "flex",
+      alignItems: "center",
+      flexFlow: "column"
+    }}>
+      <div style={{
+        display: "block"
+      }}>
+        <button
+          className="btn"
+          onClick={() => {
+            console.log("start/stop click!")
+            setRunning(!running);
+            if (!running) {
+              runningRef.current = true;
+              runSimulation();
+            }
+          }}
+        >
+          {running ? "stop" : "start"}
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            const rows = [];
+            for (let i = 0; i < numRows; i++) {
+              rows.push(
+                Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
+              );
+            }
 
-          setGrid(rows);
-        }}
-      >
-        random
-      </button>
-      <button
-        onClick={() => {
-          setGrid(generateEmptyGrid());
-        }}
-      >
-        clear
-      </button>
+            setGrid(rows);
+          }}
+        >
+          random
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            setGrid(generateEmptyGrid());
+          }}
+        >
+          clear
+        </button>
+      </div>
       <div
         style={{
           display: "grid",
@@ -137,7 +149,7 @@ const App: React.FC = () => {
           ))
         )}
       </div>
-    </>
+    </div>
   );
 }
 

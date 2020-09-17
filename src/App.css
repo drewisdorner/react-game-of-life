@@ -1,20 +1,20 @@
-button {
+button.btn {
+    font-family: 'IBM Plex Mono';
     background-color: #8e44ad;
     border: none;
     color: white;
     cursor: pointer;
-    font-family: inherit;
     font-size: 1rem;
     padding: 0.5rem;
     margin: 0.2rem;
     border-radius: 5px;
 }
 
-button:hover {
+button.btn:hover {
     background-color: #732d91;
 }
 
-button:focus {
+button.btn:focus {
     background-color: #5e3370;
     outline: none;
 }
