@@ -45,7 +45,7 @@ const App: React.FC = () => {
       console.log("setGrid!")
       return produce(g, gridCopy => {
         for (let i = 0; i < numRows; i++) {
-          for (let k = 0; i < numCols; k++) {
+          for (let k = 0; k < numCols; k++) {
             let neighbors = 0;
             operations.forEach(([x, y]) => {
               const newI = i + x;
@@ -110,7 +110,7 @@ const App: React.FC = () => {
         }}
       >
         {grid.map((rows, i) =>
-          rows.map((cols, k) => (
+          rows.map((col, k) => (
             <div
               key={`${i}-${k}`}
               onClick={() => {
