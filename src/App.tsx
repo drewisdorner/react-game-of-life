@@ -1,8 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import produce from "immer";
-
-const numRows = 50;
-const numCols = 50;
+import useWindowDimensions from "./utils/windowSize";
+import './App.css';
 
 const operations = [
   [0, 1],
@@ -15,16 +14,25 @@ const operations = [
   [-1, 0]
 ];
 
-const generateEmptyGrid = () => {
-  const rows = [];
-  for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => 0));    
-  }
-
-  return rows;
-}
-
 const App: React.FC = () => {
+
+  const { width, height } = useWindowDimensions();
+
+  const [ numRows ] = useState(() => {
+    return Math.floor(height / 23)
+  });
+  const [ numCols ] = useState(() => {
+    return Math.floor(width / 21)
+  });
+
+  const generateEmptyGrid = () => {
+    const rows = [];
+    for (let i = 0; i < numRows; i++) {
+      rows.push(Array.from(Array(numCols), () => 0));    
+    }
+
+    return rows;
+  }
 
   const [grid, setGrid] = useState(() => {
     return generateEmptyGrid();
@@ -66,7 +74,7 @@ const App: React.FC = () => {
     });
 
     setTimeout(runSimulation, 100);
-  }, []);
+  }, [numCols, numRows]);
 
   return (
     <>
@@ -122,8 +130,8 @@ const App: React.FC = () => {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: grid[i][k] ? "red" : undefined,
-                border: "solid 1px black"
+                backgroundColor: grid[i][k] ? "#732d91" : undefined,
+                border: "solid 0.5px lightgray"
               }}
             />
           ))
